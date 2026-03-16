@@ -17,11 +17,13 @@ This repository implements three main spatial outlier detection models:
 1. **GBSO (Graph-Based Spatial Outlier Detection)**
 2. **SWOD (Spatial Weighted Outlier Detection)**
 3. **Spatial LOF (Local Outlier Factor adapted for spatial data)**
+4. **GBSO_ST (Spatio-Temporal GBSO)** - *New extension for time-series geospatial data*
 
 ## 🚀 Features
 
 - **Voronoi Neighborhood Generation**: Automatically calculates neighbors and distances using Voronoi diagrams instead of simple Euclidean distance thresholds.
-- **Multiple Detection Algorithms**: Includes three different approaches to score outliers.
+- **Multiple Detection Algorithms**: Includes three static approaches and one spatio-temporal extension to score outliers.
+- **Spatio-Temporal Analysis**: `GBSO_ST` allows monitoring sensor networks over time, detecting both structural anomalies and sudden local events using a sliding temporal window over the spatial neighbourhood.
 - **Gamma Standardization**: Standardizes the outlier scores using the Gamma Cumulative Density Function to allow for unified criteria and comparison.
 - **Visualization Tools**: Built-in functions to visualize outliers on a map or scatter plot.
 
@@ -76,6 +78,9 @@ Based on Kou et al. (2006), it weights the distance between observations within 
 
 ### Spatial Local Outlier Factor (Spatial LOF)
 An adaptation of the classic LOF method (Breunig et al., 2000) that uses the $k$ nearest neighbors defined by the Voronoi diagram instead of simple Euclidean distance, calculating a local reachability density.
+
+### Spatio-Temporal GBSO (GBSO_ST)
+An original extension of GBSO for time-series geospatial data (e.g., sensor networks). For each observation at time step $t$, the score measures the deviation of its value from the spatio-temporal distribution of its Voronoi neighbours within a sliding temporal window $[t-k, t+k]$. This detects anomalies that are simultaneously unusual with respect to their immediate geographic environment and the recent temporal behaviour of that environment.
 
 ## 📚 References
 

@@ -17,11 +17,13 @@ Este repositorio implementa tres modelos principales de detección de outliers e
 1. **GBSO (Graph-Based Spatial Outlier Detection)**
 2. **SWOD (Spatial Weighted Outlier Detection)**
 3. **Spatial LOF (Local Outlier Factor adaptado a datos espaciales)**
+4. **GBSO_ST (Spatio-Temporal GBSO)** - *Nueva extensión para series temporales de datos geoespaciales*
 
 ## 🚀 Características
 
 - **Generación de Vecindarios con Voronoi**: Calcula automáticamente los vecinos y las distancias utilizando diagramas de Voronoi en lugar de simples umbrales de distancia euclidiana.
-- **Múltiples Algoritmos de Detección**: Incluye tres enfoques diferentes para puntuar la "outlaridad" (grado de valor atípico).
+- **Múltiples Algoritmos de Detección**: Incluye tres enfoques estáticos y una extensión espacio-temporal para puntuar la "outlaridad".
+- **Análisis Espacio-Temporal**: `GBSO_ST` permite monitorizar redes de sensores a lo largo del tiempo, detectando tanto anomalías estructurales como eventos locales repentinos usando una ventana temporal deslizante sobre el vecindario espacial.
 - **Estandarización Gamma**: Estandariza las puntuaciones de los outliers utilizando la Función de Densidad Acumulativa Gamma para unificar criterios y permitir la comparación entre modelos.
 - **Herramientas de Visualización**: Funciones integradas para visualizar los outliers en un mapa o diagrama de dispersión.
 
@@ -76,6 +78,9 @@ Basado en Kou et al. (2006), pondera la distancia entre las observaciones dentro
 
 ### Spatial Local Outlier Factor (Spatial LOF)
 Una adaptación del método clásico LOF (Breunig et al., 2000) que utiliza los $k$ vecinos más cercanos definidos por el diagrama de Voronoi en lugar de la distancia euclidiana simple, calculando una densidad de accesibilidad local.
+
+### Spatio-Temporal GBSO (GBSO_ST)
+Una extensión original de GBSO para series temporales de datos geoespaciales (por ejemplo, redes de sensores). Para cada observación en el instante $t$, la puntuación mide la desviación de su valor respecto a la distribución espacio-temporal de sus vecinos de Voronoi dentro de una ventana temporal deslizante $[t-k, t+k]$. Esto detecta anomalías que son simultáneamente inusuales respecto a su entorno geográfico inmediato y al comportamiento temporal reciente de ese entorno.
 
 ## 📚 Referencias
 
